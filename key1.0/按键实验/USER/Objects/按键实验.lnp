@@ -1,0 +1,22 @@
+--cpu Cortex-M3
+".\objects\main.o"
+".\objects\stm32f10x_it.o"
+".\objects\system_stm32f10x.o"
+".\objects\core_cm3.o"
+".\objects\startup_stm32f10x_hd.o"
+".\objects\misc.o"
+".\objects\stm32f10x_gpio.o"
+".\objects\stm32f10x_rcc.o"
+".\objects\stm32f10x_usart.o"
+".\objects\stm32f10x_tim.o"
+".\objects\key.o"
+".\objects\led.o"
+".\objects\mbi5025.o"
+".\objects\timer.o"
+".\objects\delay.o"
+".\objects\sys.o"
+".\objects\usart.o"
+--strict --scatter ".\Objects\按键实验.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\按键实验.map" -o .\Objects\按键实验.axf
