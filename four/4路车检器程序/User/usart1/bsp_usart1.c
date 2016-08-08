@@ -103,89 +103,129 @@ int fgetc(FILE *f)
 		return (int)USART_ReceiveData(USART1);
 }
 /*********************************************END OF FILE**********************/
+
+
+void Usart_Start(void)
+	{
+		Usart1(0xfe);
+	}
+	
+void Usart_CMD(u8 cmd)
+	{
+		Usart1(cmd);
+	}
+	
+void Usart_Res(u8 Res1,u8 Res2)
+	{
+		Usart1(Res1);
+		Usart1(Res2);
+	}
+void Usart_ID(u8 ID_L,u8 ID_H)
+	{
+		Usart1(ID_L);
+		Usart1(ID_H);
+	}
+
+void Usart_Len(u8 Len_L,u8 Len_H)
+	{
+		Usart1(Len_L);
+		Usart1(Len_H);
+	}
+
+void Usart_Data(u8 Lance,u8 Speed,u8 State,u8 QueceLen)
+	{
+		u8 i;
+		Usart1(Lance);
+		Usart1(Speed);
+		Usart1(State);
+		Usart1(QueceLen);
+		for(i=0;i<24;i++)
+		Usart1(0x00);
+	}
+	
+u8 Usart_Start_Return(void)
+	{
+		return 0xfe;
+	}
+	
+u8 Usart_CMD_Return(u8 cmd)
+	{
+		return cmd;
+	}
+	
+u8 Usart_Res_Return(u8 Res1,u8 Res2)
+	{
+		return Res1^Res2;
+	}
+u8 Usart_ID_Return(u8 ID_L,u8 ID_H)
+	{
+		return ID_L^ID_H;
+	}
+
+u8 Usart_Len_Return(u8 Len_L,u8 Len_H)
+	{
+		return Len_L^Len_H;
+	}
+
+u8 Usart_Data_Return(u8 Lance,u8 Speed,u8 State,u8 QueceLen)
+	{
+		return Lance^Speed^State^QueceLen;//异或0的值不变，所以其他位省略
+	}
+void Usart_Check(u8 lance)
+	{
+		u8 check;
+		check=Usart_Start_Return()^Usart_CMD_Return(0x01)^Usart_Res_Return(0xff,0xff)^Usart_ID_Return(0x1c,0)^Usart_Data_Return(lance,0,0,0);
+		Usart1(check);
+	}
+		
 void real_time(void)
 {
-		u8 i=0;
-		if(RS485_RealtimeData1)
-			{
-				RS485_RealtimeData1=0;
+		if(Lance==1)
+			{				
 				LED1(ON);
-				Usart1(0xfe);
-				Usart1(0x01);
-				Usart1(0xff);
-				Usart1(0xff);
-				Usart1(Mcu_Address);
-				Usart1(0x00);
-				Usart1(0x25);
-				Usart1(0xff);
-				Usart1(0x01);
-				Usart1(0x00);
-				Usart1(ydflag1);
-				Usart1(0x00);
-				for(i=0;i<24;i++)
-				Usart1(0xff);	
+				Usart_Start();
+				Usart_CMD(0x01);
+				Usart_Res(0xff,0xff);				
+				Usart_Len(0x1c,0);
+				Usart_Data(Lance,0x00,0,0);
+				Usart_Check(Lance);
+				Lance=0;
 			}
-		
-		if(RS485_RealtimeData2)
-			{
-				RS485_RealtimeData2=0;
+		else
+		if(Lance==2)
+			{				
 				LED2(ON);
-				Usart1(0xfe);
-				Usart1(0x01);
-				Usart1(0xff);
-				Usart1(0xff);
-				Usart1(Mcu_Address);
-				Usart1(0x00);
-				Usart1(0x25);
-				Usart1(0xff);
-				Usart1(0x02);
-				Usart1(0x00);
-				Usart1(ydflag2);
-				Usart1(0x00);
-				for(i=0;i<24;i++)
-				Usart1(0xff);
-				
+				Usart_Start();
+				Usart_CMD(0x01);
+				Usart_Res(0xff,0xff);				
+				Usart_Len(0x1c,0);
+				Usart_Data(Lance,0x00,0,0);
+				Usart_Check(Lance);
+				Lance=0;
 			}
-		
-		if(RS485_RealtimeData3)
-			{
-				RS485_RealtimeData3=0;
+		else
+		if(Lance==3)
+			{				
 				LED3(ON);
-				Usart1(0xfe);
-				Usart1(0x01);
-				Usart1(0xff);
-				Usart1(0xff);
-				Usart1(Mcu_Address);
-				Usart1(0x00);
-				Usart1(0x25);
-				Usart1(0xff);
-				Usart1(0x03);
-				Usart1(0x00);
-				Usart1(ydflag3);
-				Usart1(0x00);
-				for(i=0;i<24;i++)
-				Usart1(0xff);
+				Usart_Start();
+				Usart_CMD(0x01);
+				Usart_Res(0xff,0xff);				
+				Usart_Len(0x1c,0);
+				Usart_Data(Lance,0x00,0,0);
+				Usart_Check(Lance);
+				Lance=0;
 			}
 		
-		if(RS485_RealtimeData4)
-			{
-				RS485_RealtimeData4=0;
+		if(Lance==4)
+			{				
 				LED4(ON);
-				Usart1(0xfe);
-				Usart1(0x01);
-				Usart1(0xff);
-				Usart1(0xff);
-				Usart1(Mcu_Address);
-				Usart1(0x00);
-				Usart1(0x25);
-				Usart1(0xff);
-				Usart1(0x04);
-				Usart1(0x00);
-				Usart1(ydflag4);
-				Usart1(0x00);
-				for(i=0;i<24;i++)
-				Usart1(0xff);
-			
+				Usart_Start();
+				Usart_CMD(0x01);
+				Usart_Res(0xff,0xff);				
+				Usart_Len(0x1c,0);
+				Usart_Data(Lance,0x00,0,0);
+				Usart_Check(Lance);
+				Lance=0;
 			}
 				
 	

@@ -37,10 +37,7 @@ extern u8  Car_Num1_Buffer;
 extern u8  Car_Num2_Buffer;
 extern u8  Car_Num3_Buffer;
 extern u8  Car_Num4_Buffer;
-extern u8  RS485_RealtimeData1;
-extern u8  RS485_RealtimeData2;
-extern u8  RS485_RealtimeData3;
-extern u8  RS485_RealtimeData4;
+extern u8  Lance;
 extern u8  ydflag1;
 extern u8  ydflag2;
 extern u8  ydflag3;
@@ -56,4 +53,18 @@ extern u8 RS485_RX_BUF[3]; 			//Ω” ’ª∫≥Â
 extern u8 RS485_RX_CNT;
 void sys_init(void);
 void NVIC_Configuration(void);
+
+void Usart_Start(void);
+void Usart_CMD(u8 cmd);
+void Usart_Res(u8 Res1,u8 Res2);
+void Usart_ID(u8 ID_L,u8 ID_H);
+void Usart_Len(u8 Len_L,u8 Len_H);
+void Usart_Data(u8 Lance,u8 Speed,u8 State,u8 QueceLen);
+u8 Usart_Start_Return(void);
+u8 Usart_CMD_Return(u8 cmd);
+u8 Usart_Res_Return(u8 Res1,u8 Res2);
+u8 Usart_ID_Return(u8 ID_L,u8 ID_H);
+u8 Usart_Len_Return(u8 Len_L,u8 Len_H);
+u8 Usart_Data_Return(u8 Lance,u8 Speed,u8 State,u8 QueceLen);
+void Usart_Check(u8 lance);
 #endif

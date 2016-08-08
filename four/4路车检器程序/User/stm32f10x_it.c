@@ -223,7 +223,7 @@ void TIM2_IRQHandler(void)
 				if(Temp_Data1>(Temp_Data_Buffer1+Sensity1))						 
 				{
 					Car_Num1++;
-					RS485_RealtimeData1=1;
+					Lance=1;
 					
 				}	 
 				if(Car_Num1>250) Car_Num1=0;
@@ -257,7 +257,7 @@ void TIM2_IRQHandler(void)
 				if(Temp_Data2>(Temp_Data_Buffer2+Sensity2))						 
 				{
 					Car_Num2++;
-					RS485_RealtimeData2=1;
+					Lance=2;
 					
 				}
 				if(Car_Num2>250) Car_Num2=0;
@@ -291,7 +291,7 @@ void TIM2_IRQHandler(void)
           if(Temp_Data3>(Temp_Data_Buffer3+Sensity3))						 
           {
 						Car_Num3++;
-						RS485_RealtimeData3=1;
+						Lance=3;
 						
 					}
 					if(Car_Num3>250) Car_Num3=0;
@@ -325,7 +325,7 @@ void TIM2_IRQHandler(void)
 						if(Temp_Data4>(Temp_Data_Buffer4+Sensity4))						 
 					  {
 						  Car_Num4++;
-							RS485_RealtimeData4=1;
+							Lance=4;
 	
 					  }
 					  if(Car_Num4>250) Car_Num4=0;
